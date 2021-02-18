@@ -1,0 +1,7 @@
+{
+  "name": "CarWasher",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
