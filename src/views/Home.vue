@@ -1,68 +1,106 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
-    </ion-content>
-  </ion-page>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-title>Orden de Servicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding-end">
+    <ion-list>
+       <ion-list-header>Servicio</ion-list-header>
+        <ion-item>
+          <ion-checkbox color="secondary" slot="start"></ion-checkbox>
+          <ion-label>Lavado Exterior</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-checkbox color="secondary" slot="start"></ion-checkbox>
+          <ion-label>Encerado</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>Tipo de Vehículo</ion-list-header>
+      <ion-radio-group>
+        <ion-item>
+          <ion-label>Van</ion-label>
+          <ion-radio value="van"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Camioneta</ion-label>
+          <ion-radio value="camioneta"></ion-radio>
+        </ion-item>
+         <ion-item>
+          <ion-label>Automóvil</ion-label>
+          <ion-radio value="automovil"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+
+     
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Condiciones</ion-list-header>
+       <ion-item>
+        <ion-checkbox color="secondary" slot="start"></ion-checkbox>
+        <ion-label>Rayaduras</ion-label>
+      </ion-item>
+   
+      <ion-item>
+        <ion-checkbox color="secondary" slot="start"></ion-checkbox>
+        <ion-label>Golpes</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox color="secondary" slot="start"></ion-checkbox>
+        <ion-label>Llanta de Repuesto</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <section>
+      <ion-row>
+        <ion-col>
+          <ion-button class="ion-margin-vertical" expand="full" shape="round"
+            >Aceptar</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </section>
+  </ion-content>
 </template>
 
-<script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent } from 'vue';
+<script>
+import {
+  IonContent,
+  IonToolbar,
+  IonCheckbox,
+  IonItem,
+  IonLabel,
+  IonTitle,
+  IonHeader,
+  IonList,
+  IonListHeader,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonRadio,
+  IonRadioGroup,
+} from "@ionic/vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'Home',
   components: {
     IonContent,
-    IonHeader,
-    IonPage,
+    IonToolbar,
+    IonCheckbox,
+    IonItem,
+    IonLabel,
     IonTitle,
-    IonToolbar
-  }
+    IonHeader,
+    IonList,
+    IonListHeader,
+    IonButton,
+    IonRow,
+    IonCol,
+    IonRadio,
+    IonRadioGroup,
+  },
+  inheritAttrs: false,
 });
 </script>
-
-<style scoped>
-#container {
-  text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-</style>
