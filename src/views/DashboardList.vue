@@ -30,8 +30,6 @@
             <h3>Av Los Próceres</h3>
             <p>13/06/2021 - 16:41</p>
           </ion-label>
-          <ion-icon name="create-outline"></ion-icon>
-          <ion-icon name="trash"></ion-icon>
           <ion-button>
             <ion-label>Editar</ion-label>
           </ion-button>
@@ -72,7 +70,7 @@ import {
   IonBackButton,
   IonButtons,
   IonSearchbar,
-  IonIcon,
+ // IonIcon,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 
@@ -95,7 +93,7 @@ export default defineComponent({
     IonBackButton,
     IonButtons,
     IonSearchbar,
-    IonIcon,
+  //  IonIcon,
   },
   inheritAttrs: false,
 });
