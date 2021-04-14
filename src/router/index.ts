@@ -5,6 +5,8 @@ import Login from "../views/Login.vue";
 import Dashboard from "../views/Dashboard.vue";
 import DashboardList from "../views/DashboardList.vue";
 import GPS from "../views/GPS.vue";
+import InventoryItem from "../views/InventoryItem.vue";
+
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -31,6 +33,10 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboardList",
     name: "DashboardList",
     component: DashboardList,
+  },{
+    path: "/inventoryItem",
+    name: "InventoryItem",
+    component: InventoryItem,
   },{
     path: "/gps",
     name: "GPS",

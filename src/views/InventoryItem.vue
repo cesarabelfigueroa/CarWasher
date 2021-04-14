@@ -26,32 +26,25 @@
 <template>
   <ion-header translucent> </ion-header>
   <ion-content class="ion-padding-end">
-    <ion-loading
-      :is-open="isOpenRef"
-      cssClass="my-custom-class"
-      message="Espere..."
-    >
-    </ion-loading>
-    <ion-img class="image-login" src="./assets/images/login.png"></ion-img>
-    <form>
-      <ion-list class="container-stretch">
-        <ion-item>
-          <ion-input
-            @value="user.username"
-            @input="user.username = $event.target.value"
-            placeholder="Usuario"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            type="password"
-            @value="user.password"
-            @input="user.password = $event.target.value"
-            placeholder="Contraseña"
-          ></ion-input>
-        </ion-item>
-      </ion-list>
-    </form>
+    <ion-loading cssClass="my-custom-class" message="Espere..."> </ion-loading>
+    <ion-img class="image-login" src="./assets/images/package.png"></ion-img>
+    <ion-list class="container-stretch">
+      <ion-item>
+        <ion-input
+          @value="item.name"
+          @input="item.name = $event.target.value"
+          placeholder="Nombre"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          type="number"
+          @value="item.quantity"
+          @input="item.quantity = $event.target.value"
+          placeholder="Cantidad"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
     <section class="acept-btn">
       <ion-row>
         <ion-col>
@@ -110,9 +103,8 @@ export default {
   },
   methods: {
     async _auth() {
-
       const loading = await loadingController.create({
-        message: "Please wait..."
+        message: "Please wait...",
       });
 
       await loading.present();
@@ -125,7 +117,7 @@ export default {
       };
       // const user = this.user;
 
-      fb.auth()
+      /* fb.auth()
         .signInWithEmailAndPassword(this.user.username, this.user.password)
         .then(async (userCredential) => {
           //user.username = "";
@@ -154,8 +146,8 @@ export default {
           // ...
         })
         .catch(async (error) => {
-          this.user.email = "";
-          this.user.password = "";
+          this.user.name = "";
+          this.user.quantity = "";
           const errorCode = error.code;
 
           const alert = await alertController.create({
@@ -173,9 +165,11 @@ export default {
 
           /*this.router.push({ path: "/dashboard" }).catch((failure) => {
             console.log(failure);
-          });*/
+          });
          // nav.push('dashboard');
         });
+
+        */
     },
   },
   props: {
@@ -183,21 +177,11 @@ export default {
   },
   data() {
     return {
-      user: {
-        username: "",
-        password: "",
+      item: {
+        name: "",
+        quantity: "",
       },
     };
-  },
-  setup() {
-    const router = useRouter();
-
-    router.beforeEach((to, from, next) => {
-      next(); // make sure to always call next()!
-    });
-    const isOpenRef = false;
-
-    return { router, isOpenRef };
   },
   inheritAttrs: false,
 };
