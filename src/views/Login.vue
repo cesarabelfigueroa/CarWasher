@@ -26,23 +26,40 @@
 <template>
   <ion-header translucent> </ion-header>
   <ion-content class="ion-padding-end">
+    <ion-loading
+      :is-open="isOpenRef"
+      cssClass="my-custom-class"
+      message="Espere..."
+    >
+    </ion-loading>
     <ion-img class="image-login" src="./assets/images/login.png"></ion-img>
-    <ion-list class="container-stretch">
-      <ion-item>
-        <ion-label position="floating" inputmode="email" type="email"
-          >Usuario</ion-label
-        >
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating" type="password">Contraseña</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-    </ion-list>
+    <form>
+      <ion-list class="container-stretch">
+        <ion-item>
+          <ion-input
+            @value="user.username"
+            @input="user.username = $event.target.value"
+            placeholder="Usuario"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            type="password"
+            @value="user.password"
+            @input="user.password = $event.target.value"
+            placeholder="Usuario"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+    </form>
     <section class="acept-btn">
       <ion-row>
         <ion-col>
-          <ion-button class="ion-margin-vertical" expand="full" shape="round"
+          <ion-button
+            class="ion-margin-vertical"
+            @click="_auth"
+            expand="full"
+            shape="round"
             >Aceptar</ion-button
           >
         </ion-col>
@@ -55,7 +72,7 @@
 import {
   IonContent,
   IonItem,
-  IonLabel,
+  // IonLabel,
   IonHeader,
   IonList,
   IonButton,
@@ -64,14 +81,23 @@ import {
   //IonThumbnail,
   IonImg,
   IonInput,
+  alertController,
+  IonLoading,
+  loadingController,
 } from "@ionic/vue";
-import { defineComponent } from "vue";
+//import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
+import { fb } from "../main";
 
-export default defineComponent({
+//const _auth = (event) => {};
+//console.log(firebase.auth); // Undefined
+//console.log(firebase.default.auth); // Function
+
+export default {
   components: {
     IonContent,
     IonItem,
-    IonLabel,
+    //  IonLabel,
     IonHeader,
     IonList,
     IonButton,
@@ -80,7 +106,99 @@ export default defineComponent({
     // IonThumbnail,
     IonImg,
     IonInput,
+    IonLoading,
+  },
+  methods: {
+    async _auth() {
+
+      const loading = await loadingController.create({
+        message: "Please wait..."
+      });
+
+      await loading.present();
+
+      const messages = {
+        "The email address is badly formatted.":
+          "Formato de Correo Electrónico no es válido.",
+        "auth/wrong-password": "Contraseña Incorrecta",
+        "auth/user-not-found": "Usuario no encontrado",
+      };
+      // const user = this.user;
+
+      fb.auth()
+        .signInWithEmailAndPassword(this.user.username, this.user.password)
+        .then(async (userCredential) => {
+          //user.username = "";
+          //user.password = "";
+
+          const alert = await alertController.create({
+            cssClass: "alert-message",
+            header: "Éxito",
+            message: "Bienvenido",
+            buttons: [
+              {
+                text: "Aceptar",
+                handler: () => {
+                  //let navTransition = alert.dismiss();
+                  this.$router.push({ name: "Dashboard" });
+                  this.$router.go({ name: "Dashboard" });
+                },
+              },
+            ],
+          });
+
+          await loading.dismiss();
+          await alert.present();
+          console.log(userCredential);
+
+          // ...
+        })
+        .catch(async (error) => {
+          this.user.email = "";
+          this.user.password = "";
+          const errorCode = error.code;
+
+          const alert = await alertController.create({
+            cssClass: "alert-message",
+            header: "Error",
+            message:
+              messages[error.message] ||
+              messages[error.code] ||
+              "Ocurrió un error.",
+            buttons: ["Aceptar"],
+          });
+
+          await loading.dismiss();
+          await alert.present();
+
+          /*this.router.push({ path: "/dashboard" }).catch((failure) => {
+            console.log(failure);
+          });*/
+         // nav.push('dashboard');
+        });
+    },
+  },
+  props: {
+    timeout: { type: Number, default: 1000 },
+  },
+  data() {
+    return {
+      user: {
+        username: "",
+        password: "",
+      },
+    };
+  },
+  setup() {
+    const router = useRouter();
+
+    router.beforeEach((to, from, next) => {
+      next(); // make sure to always call next()!
+    });
+    const isOpenRef = false;
+
+    return { router, isOpenRef };
   },
   inheritAttrs: false,
-});
+};
 </script>

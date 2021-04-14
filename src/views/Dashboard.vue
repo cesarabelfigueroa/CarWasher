@@ -49,6 +49,8 @@ ion-thumbnail {
           :key="value"
         >
           <ion-thumbnail>
+            <router-link :to="{ name: value.location, params: { location: value.location }}"></router-link>
+
             <div class="image-content">
               <ion-img :src="value.src" size="30px"></ion-img>
             </div>
@@ -112,10 +114,17 @@ export default defineComponent({
         {
           src: "./assets/images/report.png",
           text: "Rondas",
+          location: "DashboardList",
+          data: {
+            name: "inventory"
+          }
         },
         {
           src: "./assets/images/inventory.png",
           text: "Inventario",
+          data: {
+            name: "inventory"
+          }
         },
       ],
       imagesEnd: [

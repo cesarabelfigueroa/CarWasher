@@ -10,7 +10,7 @@ import GPS from "../views/GPS.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/login",
+    redirect: "/Home",
   },
   {
     path: "/home",
@@ -38,9 +38,13 @@ const routes: Array<RouteRecordRaw> = [
   }
 ];
 
+//let current: any = "/login";
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+
 
 export default router;
